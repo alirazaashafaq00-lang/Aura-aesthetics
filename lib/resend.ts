@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+export const resend = new Resend(process.env.RESEND_API_KEY || "re_placeholder_key");
 
 export async function sendBookingConfirmation(to: string, name: string, when: string) {
   return resend.emails.send({
