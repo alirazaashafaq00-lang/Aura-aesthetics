@@ -1,0 +1,21 @@
+/* Scroll-triggered and micro-interaction animations, layered on top of Tailwind's animate-* utilities */
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.35), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
