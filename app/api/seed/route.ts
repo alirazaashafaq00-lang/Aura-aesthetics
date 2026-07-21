@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Treatment from "@/models/Treatment";
 import Blog from "@/models/Blog";
+import Staff from "@/models/Staff";
 
 const TREATMENTS = [
   { name: "HydraFacial", slug: "hydrafacial", category: "Facial Aesthetics", shortDescription: "Deep cleanse, extraction, and hydration in one session.", description: "A multi-step treatment that cleanses, extracts, and hydrates using patented vortex technology.", priceFrom: 180, imageUrl: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800" },
@@ -15,6 +16,12 @@ const BLOG_POSTS = [
   { title: "The Truth About Retinol", slug: "truth-about-retinol", excerpt: "How to introduce retinol without the irritation.", content: "Retinol remains one of the most studied ingredients for renewing skin texture and softening fine lines. The key to avoiding irritation is starting slow — a pea-sized amount, two to three nights a week, building up gradually as your skin adjusts.", author: "Dr. Naomi Clarke", published: true, publishedAt: new Date() },
 ];
 
+const STAFF = [
+  { name: "Dr. Elena Marsh", title: "Medical Director", bio: "MD, Dermatology. 15 years of experience, board certified.", imageUrl: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600" },
+  { name: "Dr. Rohan Malhotra", title: "Cosmetic Surgeon", bio: "MD, Plastic Surgery. 12 years of experience, fellowship trained.", imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600" },
+  { name: "Dr. Naomi Clarke", title: "Aesthetic Physician", bio: "MD, Aesthetic Medicine. 9 years of experience, laser specialist.", imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600" },
+];
+
 export async function GET() {
   await connectToDatabase();
 
@@ -24,9 +31,13 @@ export async function GET() {
   await Blog.deleteMany({});
   const posts = await Blog.insertMany(BLOG_POSTS);
 
+  await Staff.deleteMany({});
+  const staff = await Staff.insertMany(STAFF);
+
   return NextResponse.json({
     success: true,
     treatments: treatments.length,
     posts: posts.length,
+    staff: staff.length,
   });
-  }
+}
